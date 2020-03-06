@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { addNewUser } from '../../redux/actions/userActions'
 
 class Form extends Component {
   state = {
@@ -50,11 +52,12 @@ class Form extends Component {
       if(!this.props.isEdit){
         if (
           this.state.contactNo.match(/^\d{10}$/) && 
-          /^[A-Za-z]+$/.test(this.state.name) && 
-          !(this.state.uid=='' || this.state.uid==' ') && !this.props.isEdit)
+          /^[A-Za-z ]+$/.test(this.state.name) && 
+          !(this.state.uid == '' || this.state.uid == ' ') && !this.props.isEdit)
             {
             // this.props.newUser(user); 
             console.log(user)
+            this.props.addNewUser( user );
             this.reset();
             }
       }else if(this.props.isEdit){this.props.updateUser(user);this.reset();}
@@ -132,7 +135,6 @@ class Form extends Component {
               value={this.state.contactNo}
               onChange={this.changeContactHandler} 
             />
-            {/* {console.log(this.state.contactNo.match(/^\d{10}$/))} */}
             <button type="button" onClick={this.submit} className='mt-3'>Submit</button>
             <button type="button" onClick={this.reset} className='float-right mt-3'>Reset</button>
           </div>
@@ -142,4 +144,6 @@ class Form extends Component {
   }
 }
 
-export default Form
+const mapDispatchToProps = {addNewUser}
+
+export default connect(null,mapDispatchToProps)(Form);

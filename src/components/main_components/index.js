@@ -11,15 +11,14 @@ class Home extends Component {
         <h1 className='text-center'>Home page</h1>
         <Form/>
         <Table users={this.props.users}/>
-        
-        {console.log(this.props.users)}
       </>
     )
   }
 }
-function mapStateToProps(state){
+const mapStateToProps = (state) => {
   return {
     users : state.users
   };
 }
+
 export default connect(mapStateToProps)(Home);
