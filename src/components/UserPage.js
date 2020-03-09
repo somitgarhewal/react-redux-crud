@@ -3,11 +3,18 @@ import 'bootstrap/dist/css/bootstrap.css'
 import { connect } from 'react-redux';
 
 class UserPage extends Component {
+
+  state = {
+    currentUser: {}
+  }
+  
+  componentDidMount = () => {
+    const uid = this.props.match.params.uid;
+    const currentUser = this.props.users.find(user => {if(user.uid == uid)return user})
+    this.setState({ currentUser: currentUser})
+  }
    
   render() {
-    const uid = this.props.match.params.uid;
-    const users= this.props.users
-    const currentUser = users.find(user => {if(user.uid == uid)return user})
     return(
       <div class="container m-5">
         <div class="row my-2 ">
@@ -23,9 +30,10 @@ class UserPage extends Component {
                 </a>
               </li>
             </ul>
+            {!(this.state.currentUser) ? 'Loading...' : (
               <div className="tab-content py-4">
                 <div className="tab-pane active" id="profile">
-                  <h5 className="mb-3">{currentUser.name}</h5>
+                  <h5 className="mb-3">{this.state.currentUser.name}</h5>
                   <div className="row">
                     <div className="col-md-6">
                       <h6>
@@ -53,24 +61,24 @@ class UserPage extends Component {
                         <tr>
                           <td>
                             <strong>UserID :</strong>
-                            <strong>{currentUser.uid}</strong>
+                            <strong>{this.state.currentUser.uid}</strong>
                           </td>
                         </tr>
                         <tr>
                           <td>
-                            <strong>Name :</strong><strong>{currentUser.name}</strong>
+                            <strong>Name :</strong><strong>{this.state.currentUser.name}</strong>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <strong>Email :</strong>{" "}
-                            <strong>{currentUser.email}</strong>
+                            <strong>{this.state.currentUser.email}</strong>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <strong>Contact :</strong>
-                            <strong>{currentUser.contactNo}</strong>
+                            <strong>{this.state.currentUser.contactNo}</strong>
                           </td>
                         </tr>
                       </tbody>
@@ -79,6 +87,7 @@ class UserPage extends Component {
                 </div>
               </div>
             </div>
+            )}
           </div>
           <div className="col-lg-4 order-lg-1 text-center">
             <img
@@ -94,7 +103,7 @@ class UserPage extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    users : state.users
+    users: state.users
   };
 }
 

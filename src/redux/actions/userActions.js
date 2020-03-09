@@ -1,6 +1,4 @@
-import { ADD_NEW_USER } from '../types'
-import { DELETE_USER } from '../types'
-import { UPDATE_USER } from '../types'
+import { ADD_NEW_USER, DELETE_USER, UPDATE_USER } from '../types'
 
 export const addNewUser = (payload) => ({
   type: ADD_NEW_USER,

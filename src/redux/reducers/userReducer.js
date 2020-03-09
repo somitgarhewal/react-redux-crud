@@ -1,10 +1,8 @@
-import { ADD_NEW_USER } from '../types'
-import { DELETE_USER } from '../types'
-import { UPDATE_USER } from '../types'
+import { ADD_NEW_USER, DELETE_USER, UPDATE_USER  } from '../types'
 
 const initialState = {
   users: [
-    { uid: 101, name:"Fin" , email: "test@mailinator.com", contactNo: 986343544 },
+    { uid: 101, name: "Fin" , email: "test@mailinator.com", contactNo: 986343544 },
     { uid: 102, name: "John" , email: "john@mailinator.com", contactNo: 9407054578 }
   ]
 };
@@ -16,7 +14,7 @@ const userReducer = (state = initialState, action) => {
       usersRef.push(action.payload)      
       return {
         ...state,
-        users : usersRef
+        users: usersRef
       }   
     case DELETE_USER :
       const deleteUsersRef = [...state.users]             
@@ -28,9 +26,9 @@ const userReducer = (state = initialState, action) => {
       const updateUsersRef = [...state.users]
       const updatedUsers = updateUsersRef.map(element => {
          if(element.uid == action.payload.uid) {
-           return action.payload 
-          }
-          else return element
+           return action.payload
+        }
+          return element
         }
       )
       return {
@@ -42,4 +40,5 @@ const userReducer = (state = initialState, action) => {
       return state;
   }
 }
+
 export default userReducer

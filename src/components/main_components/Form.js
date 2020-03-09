@@ -59,10 +59,10 @@ class Form extends Component {
           !(this.state.uid == '' || this.state.uid == ' ') && !this.props.isEdit)
             {
             console.log(user)
-            this.props.addNewUser( user );
+            this.props.addNewUser(user);
             this.reset();
             }
-      }else
+      } else
             { this.props.updateUser(user);
               this.props.updated();
               this.reset();
@@ -120,10 +120,9 @@ class Form extends Component {
               value={this.state.uid}
               disabled
             />
-            <div className='text-danger' id="blankUId"></div>
+            <div className='text-danger'></div>
             { (this.state.uid=='' || this.state.uid==" ") &&
             <button 
-            id='btnGenerateId' 
             type="button" 
             onClick={this.generateUId} 
             className='mb-3'>
