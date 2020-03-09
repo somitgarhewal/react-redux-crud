@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import nextId from 'react-id-generator'
 import { connect } from 'react-redux';
 import { addNewUser } from '../../redux/actions/userActions'
-import { updateUser } from '../../redux/actions/userActions'
+import {updateUser} from '../../redux/actions/userActions'
 
 class Form extends Component {
   state = {
@@ -33,9 +33,7 @@ class Form extends Component {
   changeContactHandler = (event) => {
     this.setState({ contactNo:event.target.value })
   }
-  editUser = (event) => {
 
-  }
   submit = () => {    
     if (this.state.uid=='') this.setState({uid:' '})
     const user = {
@@ -46,7 +44,7 @@ class Form extends Component {
     }
     // const emailAlreadyExist = this.checkExistingUser()
     // console.log('emailAlreadyExist', emailAlreadyExist)
-    if(!this.state.contactNo.match(/^\d{10}$/)) alert("please enter correct contact no")
+    // if(!this.state.contactNo.match(/^\d{10}$/)) alert("please enter correct contact no")
     if(!/^[A-Za-z ]+$/.test(this.state.name)) alert("please enter alphabets only in name")
     if(this.state.email.includes('@') && this.state.email.includes('.')) {
       this.setState({isEmailValid:true})
@@ -60,7 +58,6 @@ class Form extends Component {
           /^[A-Za-z ]+$/.test(this.state.name) && 
           !(this.state.uid == '' || this.state.uid == ' ') && !this.props.isEdit)
             {
-            // this.props.newUser(user); 
             console.log(user)
             this.props.addNewUser( user );
             this.reset();

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { deleteUser } from '../../redux/actions/userActions'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 
 class Table extends Component {
 
@@ -26,13 +27,15 @@ class Table extends Component {
               <td>{element.email}</td>
               <td>{element.contactNo}</td>
               <td>
+              <Link to={`/user_page/${element.uid}`}>                         
                   <button 
                     className='viewButton'
                     type='button'
-                    onClick={() =>this.onClickView()}>
+                  >
                     <i className='fa fa-eye'></i>
                     view
                   </button> 
+                </Link>  
               </td>
               <td>
                 <button

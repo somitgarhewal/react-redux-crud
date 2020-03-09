@@ -21,6 +21,13 @@ class Home extends Component {
     const currentUser = usersRef.find(element => element.uid == uid)
     this.setState({currentUser : currentUser, isEdit:true})
   }
+  onClickView = (uid) => {
+    const usersRef=[...this.props.users]
+    const currentUser = usersRef.find(element => element.uid == uid)
+    this.setState({currentUser : currentUser})
+    console.log(currentUser)
+
+  }
   render() {
     return (
       <>
@@ -29,14 +36,18 @@ class Home extends Component {
           isEdit={this.state.isEdit} 
           updated={this.updated}
         />
-        <Table users={this.props.users} editUser={this.editUser}/>
+        <Table users={this.props.users}
+          editUser={this.editUser}
+          onClickView={this.onClickView}
+        />
       </>
     )
   }
 }
 const mapStateToProps = (state) => {
   return {
-    users : state.users
+    users : state.users,
+    currentUser : state.currentUser
   };
 }
 
