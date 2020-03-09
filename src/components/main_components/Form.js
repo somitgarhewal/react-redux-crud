@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
+import nextId from 'react-id-generator'
 import { connect } from 'react-redux';
 import { addNewUser } from '../../redux/actions/userActions'
+import { updateUser } from '../../redux/actions/userActions'
 
 class Form extends Component {
   state = {
@@ -8,7 +10,7 @@ class Form extends Component {
     email:'',
     uid:'',
     contactNo:'',
-    isEmailValid:true,
+    isEmailValid:true
   }
 
   componentDidUpdate(prevProps) {
@@ -31,6 +33,9 @@ class Form extends Component {
   changeContactHandler = (event) => {
     this.setState({ contactNo:event.target.value })
   }
+  editUser = (event) => {
+
+  }
   submit = () => {    
     if (this.state.uid=='') this.setState({uid:' '})
     const user = {
@@ -42,7 +47,7 @@ class Form extends Component {
     // const emailAlreadyExist = this.checkExistingUser()
     // console.log('emailAlreadyExist', emailAlreadyExist)
     if(!this.state.contactNo.match(/^\d{10}$/)) alert("please enter correct contact no")
-    if(!/^[A-Za-z]+$/.test(this.state.name)) alert("please enter alphabets only in name")
+    if(!/^[A-Za-z ]+$/.test(this.state.name)) alert("please enter alphabets only in name")
     if(this.state.email.includes('@') && this.state.email.includes('.')) {
       this.setState({isEmailValid:true})
       user.uid= this.state.uid
@@ -60,7 +65,11 @@ class Form extends Component {
             this.props.addNewUser( user );
             this.reset();
             }
-      }else if(this.props.isEdit){this.props.updateUser(user);this.reset();}
+      }else
+            { this.props.updateUser(user);
+              this.props.updated();
+              this.reset();
+            }
     }
     else this.setState({isEmailValid:false}) 
     // if(!this.props.isEdit){
@@ -70,11 +79,10 @@ class Form extends Component {
   }
 
   reset = () => {
-    this.setState({ name:'', email:'', uid:'', contactNo:'',isEmailValid:true })
-    // {this.props.setIsEdit}   
+    this.setState({ name:'', email:'', uid:'', contactNo:'',isEmailValid:true })  
   }
   generateUId = () =>{
-    this.setState({ uid: "1"})
+    this.setState({ uid: nextId('IND') })
   }
   // checkExistingUser = () => {
   //   const checkUser = this.props.users.some(item => item.email == this.state.email)
@@ -144,6 +152,12 @@ class Form extends Component {
   }
 }
 
-const mapDispatchToProps = {addNewUser}
+const mapDispatchToProps = {addNewUser,updateUser}
 
-export default connect(null,mapDispatchToProps)(Form);
+const mapStateToProps = (state) => {
+  return {
+    users : state.users
+  };
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Form);

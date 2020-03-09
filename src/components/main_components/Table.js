@@ -1,16 +1,9 @@
 import React, { Component } from 'react'
+import { deleteUser } from '../../redux/actions/userActions'
+import { connect } from 'react-redux'
 
 class Table extends Component {
 
-  onClickView = () => {
-
-  }
-  onClickEdit = () => {
-
-  }
-  onClickDelete = () => {
-
-  }
   render () {
     return (
       <table className="table container table-bordered table-striped table-hover">
@@ -45,7 +38,7 @@ class Table extends Component {
                 <button
                   className='editButton' 
                   type='button' 
-                  onClick={() => this.onClickEdit()}>
+                  onClick={() => this.props.editUser(element.uid)}>
                   <i className='fa fa-edit'></i>
                   edit
                 </button>             
@@ -54,7 +47,7 @@ class Table extends Component {
                 <button 
                   className='delButton' 
                   type='button' 
-                  onClick={() => this.onClickDelete()}>
+                  onClick={() => this.props.deleteUser(element.uid)}>
                   <i className='fa fa-trash'></i>
                   delete
                 </button>
@@ -65,5 +58,8 @@ class Table extends Component {
     )
   }
 }
+const mapDispatchToProps = {
+  deleteUser
+}
 
-export default Table
+export default connect(null, mapDispatchToProps)(Table)
